@@ -68,6 +68,7 @@ call_user_func( function() {
 	$GLOBALS['wgResourceModules'] = array_merge( $GLOBALS['wgResourceModules'], include 'Maps.resources.php' );
 
 	$GLOBALS['wgAPIModules']['geocode'] = 'Maps\Api\Geocode';
+	$GLOBALS['wgAPIModules']['coordinates'] = 'Maps\Api\Coordinates';
 
 	// Register the initialization function of Maps.
 	$GLOBALS['wgExtensionFunctions'][] = function () {

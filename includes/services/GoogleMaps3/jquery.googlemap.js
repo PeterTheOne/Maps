@@ -519,6 +519,16 @@
 				this.addMarker(options.locations[i]);
 			}
 
+			if (options.ajax) {
+				var self = this;
+				$.get('/w/api.php?action=coordinates&locations=new%20york&format=json', function(data) {
+					console.log(data.results.locations);
+					for (var i = data.results.locations.length - 1; i >= 0; i--) {
+						self.addMarker(data.results.locations[i]);
+					}
+				}, 'json');
+			}
+
 			for (i = options.fusiontables.length - 1; i >= 0; i--) {
 				var ftLayer = new google.maps.FusionTablesLayer(options.fusiontables[i], { map:map });
 			}
