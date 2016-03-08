@@ -146,6 +146,11 @@ class MapsDisplayMap extends ParserHook {
 			'default' => false,
 		);
 
+		$params['ajax'] = array(
+				'type' => 'boolean',
+				'default' => false,
+		);
+
 		// Give grep a chance to find the usages:
 		// maps-displaymap-par-title, maps-displaymap-par-label, maps-displaymap-par-icon,
 		// maps-displaymap-par-visitedicon, aps-displaymap-par-lines, maps-displaymap-par-polygons,

@@ -80,7 +80,9 @@ class MapsDisplayMapRenderer {
 	 * @return string
 	 */
 	public final function renderMap( array $params, Parser $parser ) {
-		$this->handleMarkerData( $params, $parser );
+		if (!$params['ajax']) {
+			$this->handleMarkerData( $params, $parser );
+		}
 
 		$mapName = $this->service->getMapId();
 
