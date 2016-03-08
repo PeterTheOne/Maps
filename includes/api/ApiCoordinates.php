@@ -22,22 +22,32 @@ class Coordinates extends ApiBase {
 
 
     public function execute() {
-        $result = array(
-            'locations' => array(
-                array(
-                    "lat" => 40.7127837,
-                    "lon" => -74.0059413
-                ),
-                array(
-                    "lat" => 50.8503396,
-                    "lon" => 4.3517103
-                ),
-                array(
-                    "lat" => 51.5073509,
-                    "lon" => -0.1277583
-                )
+        $params = $this->extractRequestParams();
+
+        $locations = array(
+            array(
+                "lat" => 40.7127837,
+                "lon" => -74.0059413
+            ),
+            array(
+                "lat" => 50.8503396,
+                "lon" => 4.3517103
+            ),
+            array(
+                "lat" => 51.5073509,
+                "lon" => -0.1277583
             )
         );
+        $result = array();
+        for ($i = 0; $i < count($locations); $i++) {
+            // todo: this is temporary, doesn't work with wrap around etc.
+            if ($locations[$i]['lat'] < $params['bbNorth'] &&
+                    $locations[$i]['lat'] > $params['bbSouth'] &&
+                    $locations[$i]['lon'] > $params['bbWest'] &&
+                    $locations[$i]['lon'] < $params['bbEast']) {
+                $result['locations'][] = $locations[$i];
+            }
+        }
         return $this->getResult()->addValue(null, 'results', $result);
     }
 
@@ -47,6 +57,18 @@ class Coordinates extends ApiBase {
                 ApiBase::PARAM_TYPE => 'string',
                 //ApiBase::PARAM_REQUIRED => true,
                 ApiBase::PARAM_ISMULTI => true,
+            ),
+            'bbSouth' => array(
+
+            ),
+            'bbWest' => array(
+
+            ),
+            'bbNorth' => array(
+
+            ),
+            'bbEast' => array(
+
             ),
             'service' => array(
                 ApiBase::PARAM_TYPE => \Maps\Geocoders::getAvailableGeocoders(),
